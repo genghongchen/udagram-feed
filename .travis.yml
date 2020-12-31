@@ -15,7 +15,7 @@ before_script:
 
 script:
   - docker --version # print the version for logging
-  - docker build -t udagram-feed --build-arg ARG_POSTGRES_USERNAME=$POSTGRES_USERNAME --build-arg ARG_POSTGRES_PASSWORD=$POSTGRES_PASSWORD --build-arg ARG_POSTGRES_DB=$POSTGRES_DB --build-arg ARG_POSTGRES_HOST=$POSTGRES_HOST --build-arg ARG_AWS_REGION=$AWS_REGION --build-arg ARG_AWS_PROFILE=$AWS_PROFILE --build-arg ARG_AWS_BUCKET=$AWS_BUCKET --build-arg ARG_URL=$URL --build-arg ARG_JWT_SECRET=$JWT_SECRET .
+  - docker build -t udagram-feed .
   - docker tag udagram-feed genghong/udagram-feed:latest
 
 after_success:

@@ -5,7 +5,13 @@ import * as jwt from 'jsonwebtoken';
 import * as AWS from '../../../../aws';
 import * as c from '../../../../config/config';
 
+const { v4: uuidv4 } = require('uuid');
+
 const router: Router = Router();
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
   if (!req.headers || !req.headers.authorization) {
@@ -41,7 +47,12 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/:id',
     async (req: Request, res: Response) => {
       const {id} = req.params;
+      let pid = uuidv4();
+      console.log(new Date().toLocaleString() + ' UUID: ' + pid.toLocaleString() + ' Feed ' + id.toLocaleString() + ' requested for resource');
       const item = await FeedItem.findByPk(id);
+      sleep(Math.random() * 10000).then(() => {
+        console.log(new Date().toLocaleString() + ' UUID: ' + pid.toLocaleString() + ' Finished feed ' + id.toLocaleString() + ' request');
+      })
       res.send(item);
     });
 
